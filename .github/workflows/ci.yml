@@ -101,7 +101,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Determine release tag
+        id: get_tag
+        run: |
+          git fetch --tags --force
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -z "$TAG" ]; then
+            echo "no_tag=true" >> "$GITHUB_OUTPUT"
+            echo "No release tag found; skipping artifact build." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "no_tag=false" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
       - name: Install system dependencies
+        if: steps.get_tag.outputs.no_tag != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -114,6 +128,7 @@ jobs:
             pkg-config
 
       - name: Install Rust toolchain
+        if: steps.get_tag.outputs.no_tag != 'true'
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
@@ -123,27 +138,19 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
 
       - name: Cache Rust dependencies
+        if: steps.get_tag.outputs.no_tag != 'true'
         uses: Swatinem/rust-cache@v2
         with:
           key: ${{ matrix.target }}
 
       - name: Build release binary
+        if: steps.get_tag.outputs.no_tag != 'true'
         env:
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
         run: cargo build --release --target ${{ matrix.target }}
 
-      - name: Determine release tag
-        id: get_tag
-        run: |
-          git fetch --tags --force
-          TAG=$(git describe --tags --abbrev=0)
-          if [ -z "$TAG" ]; then
-            echo "No release tag found" >&2
-            exit 1
-          fi
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
       - name: Package binary
+        if: steps.get_tag.outputs.no_tag != 'true'
         run: |
           mkdir -p artifacts
           cp target/${{ matrix.target }}/release/Settlers4LinuxPatcher artifacts/Settlers4LinuxPatcher
@@ -151,6 +158,7 @@ jobs:
           tar -czf ${{ matrix.archive }} Settlers4LinuxPatcher
 
       - name: Upload binary to release
+        if: steps.get_tag.outputs.no_tag != 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.get_tag.outputs.tag }}
