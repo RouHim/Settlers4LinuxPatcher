@@ -158,6 +158,12 @@ This is a Linux port of the original [Settlers4-Widescreen-Tool](https://github.
 - `gui.rs` - Iced GUI implementation
 - `display.rs` - Display resolution detection
 
+## CI/CD
+
+- GitHub Actions (`.github/workflows/ci.yml`) runs fmt, clippy, tests, and a release build matrix.
+- Semantic-release publishes tagged releases when conventional commits such as `feat:` or `fix:` land on `main`.
+- Artifact packaging is skipped when no release tag exists.
+
 ## Development
 
 ### Running Tests
