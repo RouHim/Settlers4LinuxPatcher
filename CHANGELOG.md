@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.1...v1.0.2) (2025-12-04)
+
+### Bug Fixes
+
+* **ci:** add aarch64 cross-compilation library support ([a443420](https://github.com/RouHim/Settlers4LinuxPatcher/commit/a443420eaada925c5dda174aedb09e7a5341aed1))
+
 ## [1.0.1](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.0...v1.0.1) (2025-12-04)
 
 ### Bug Fixes
