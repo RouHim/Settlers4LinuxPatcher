@@ -1,0 +1,82 @@
+# Coding Guidelines
+
+## Build/Test/Lint Commands
+
+- `cargo build` - Build the project
+- `cargo run -- --config config.toml` - Run with config file
+- `cargo test` - Run all Rust unit tests
+- `cargo test <test_name>` - Run specific test
+- `cargo clippy` - Lint code
+- `cargo fmt` - Format code
+
+## Code Style Guidelines
+
+- Breaking changes are allowed because the app is not released yet; no migration is needed when implementing new
+  features or changes.
+- `cargo run` hangs until the process gets killed, thus always start the application in the background using `nohup`
+- **Error Handling**: Use `Result<T, Box<dyn std::error::Error>>` for fallible functions
+- **Async**: Use tokio runtime, prefer async/await over blocking operations
+- **Logging**: Use log crate with env_logger, structured logging with context
+- **Naming**: snake_case for variables/functions, PascalCase for structs/enums
+- **Logging**: Use the `log` crate with `env_logger` for logging.
+- This application targets Linux wayland only.
+
+## UI Color Palette (Settlers IV-inspired)
+
+- Stone background: `#3a3628` (dark) / `#484432` (light panels)
+- Gold trim: `#c7a04a` base, shadow `#8a6625`
+- Text cream: `#f2e8c8`
+- Moss success: `#6d7a3b`
+- Amber warning: `#c1933d`
+- Rust danger: `#a44832`
+
+## Code Quality Principles
+
+### Modularity
+
+- Structure code into small, focused rust files without using rust modules
+- Each file should encapsulate a single responsibility or closely related functionalities.
+- Promote reusability and ease of testing by isolating components.
+
+### SOLID Principles
+
+- Follow the SOLID object-oriented design principles to ensure maintainable and extensible code.
+- Emphasize single responsibility, open-closed, Liskov substitution, interface segregation, and dependency inversion
+  where applicable.
+
+### Clean Code
+
+- Write clear, readable, and straightforward code.
+- Use descriptive names and avoid clever tricks or shortcuts that hinder comprehensibility.
+- Keep functions and files focused and concise.
+- YAGNI - You Aren't Gonna Need It: Avoid adding functionality until it is necessary.
+- Don't write unused code for future features.
+
+## Dependency Management
+
+- Avoid introducing additional dependencies unless absolutely necessary.
+- Prefer standard Rust libraries and built-in features to minimize external package usage.
+- Evaluate trade-offs before adding any third-party crate.
+
+## Formatting and Linting
+
+- Always run code formatters (`cargo fmt`) and linters (`cargo clippy`) before committing.
+- Maintain consistent code style across the project to improve readability and reduce friction in reviews.
+
+## Testing Practices
+
+### Test-Driven Development (TDD)
+
+- When it makes sense, write tests before coding the functionality.
+- Use tests to drive design decisions and ensure robust feature implementation.
+
+### Behavior-Driven Development (BDD)
+
+- Write tests in a BDD style, focusing on the expected behavior and outcomes.
+- Structure tests to clearly state scenarios, actions, and expected results to improve communication and documentation.
+
+## Available Tools
+
+- If needed use Context7 and Online Search to clarify dependency APIs or implementation details or example usages
+- Do NOT use sudo, ask me for executing commands if needed!
+- Use `pkill` to kill the application if it is already running
