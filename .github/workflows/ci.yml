@@ -134,7 +134,7 @@ jobs:
           targets: ${{ matrix.target }}
 
       - name: Install aarch64 linker
-        if: matrix.install_linker
+        if: matrix.install_linker && steps.get_tag.outputs.no_tag != 'true'
         run: sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
 
       - name: Cache Rust dependencies
