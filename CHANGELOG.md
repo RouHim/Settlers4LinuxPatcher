@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.4...v1.0.5) (2025-12-04)
+
+### Bug Fixes
+
+* **ci:** properly sync release version with artifact upload ([5820432](https://github.com/RouHim/Settlers4LinuxPatcher/commit/58204329a50d32b5f555cb2e8685da6b6c011d35))
+
 ## [1.0.4](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.3...v1.0.4) (2025-12-04)
 
 ### Bug Fixes
