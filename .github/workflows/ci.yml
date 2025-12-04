@@ -87,14 +87,6 @@ jobs:
     needs: release
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - target: x86_64-unknown-linux-gnu
-            archive: Settlers4LinuxPatcher-linux-x86_64.tar.gz
-          - target: aarch64-unknown-linux-gnu
-            archive: Settlers4LinuxPatcher-linux-aarch64.tar.gz
-            install_linker: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -114,8 +106,8 @@ jobs:
           echo "no_tag=false" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Install system dependencies (x86_64)
-        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'x86_64-unknown-linux-gnu'
+      - name: Install system dependencies
+        if: steps.get_tag.outputs.no_tag != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -127,43 +119,29 @@ jobs:
             libwayland-dev \
             pkg-config
 
-      - name: Install Rust toolchain (x86_64)
-        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'x86_64-unknown-linux-gnu'
+      - name: Install Rust toolchain
+        if: steps.get_tag.outputs.no_tag != 'true'
         uses: dtolnay/rust-toolchain@stable
-
-      - name: Install Rust toolchain (cross-compilation)
-        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'aarch64-unknown-linux-gnu'
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Install cross for aarch64
-        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'aarch64-unknown-linux-gnu'
-        run: cargo install cross --git https://github.com/cross-rs/cross
 
       - name: Cache Rust dependencies
         if: steps.get_tag.outputs.no_tag != 'true'
         uses: Swatinem/rust-cache@v2
-        with:
-          key: ${{ matrix.target }}
 
-      - name: Build release binary (x86_64)
-        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'x86_64-unknown-linux-gnu'
-        run: cargo build --release --target ${{ matrix.target }}
-
-      - name: Build release binary (aarch64 with cross)
-        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'aarch64-unknown-linux-gnu'
-        run: cross build --release --target ${{ matrix.target }}
+      - name: Build release binary
+        if: steps.get_tag.outputs.no_tag != 'true'
+        run: cargo build --release
 
       - name: Package binary
         if: steps.get_tag.outputs.no_tag != 'true'
         run: |
           mkdir -p artifacts
-          cp target/${{ matrix.target }}/release/Settlers4LinuxPatcher artifacts/Settlers4LinuxPatcher
+          cp target/release/Settlers4LinuxPatcher artifacts/Settlers4LinuxPatcher
           cd artifacts
-          tar -czf ${{ matrix.archive }} Settlers4LinuxPatcher
+          tar -czf Settlers4LinuxPatcher-linux-x86_64.tar.gz Settlers4LinuxPatcher
 
       - name: Upload binary to release
         if: steps.get_tag.outputs.no_tag != 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.get_tag.outputs.tag }}
-          files: artifacts/${{ matrix.archive }}
+          files: artifacts/Settlers4LinuxPatcher-linux-x86_64.tar.gz
