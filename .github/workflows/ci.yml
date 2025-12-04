@@ -114,41 +114,30 @@ jobs:
           echo "no_tag=false" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Install system dependencies
-        if: steps.get_tag.outputs.no_tag != 'true'
+      - name: Install system dependencies (x86_64)
+        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'x86_64-unknown-linux-gnu'
         run: |
           sudo apt-get update
-          if [ "${{ matrix.target }}" = "aarch64-unknown-linux-gnu" ]; then
-            sudo dpkg --add-architecture arm64
-            sudo apt-get update
-            sudo apt-get install -y \
-              libxcb1-dev:arm64 \
-              libxcb-render0-dev:arm64 \
-              libxcb-shape0-dev:arm64 \
-              libxcb-xfixes0-dev:arm64 \
-              libxkbcommon-dev:arm64 \
-              libwayland-dev:arm64 \
-              pkg-config
-          else
-            sudo apt-get install -y \
-              libxcb1-dev \
-              libxcb-render0-dev \
-              libxcb-shape0-dev \
-              libxcb-xfixes0-dev \
-              libxkbcommon-dev \
-              libwayland-dev \
-              pkg-config
-          fi
+          sudo apt-get install -y \
+            libxcb1-dev \
+            libxcb-render0-dev \
+            libxcb-shape0-dev \
+            libxcb-xfixes0-dev \
+            libxkbcommon-dev \
+            libwayland-dev \
+            pkg-config
 
-      - name: Install Rust toolchain
-        if: steps.get_tag.outputs.no_tag != 'true'
+      - name: Install Rust toolchain (x86_64)
+        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'x86_64-unknown-linux-gnu'
         uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.target }}
 
-      - name: Install aarch64 linker
-        if: matrix.install_linker && steps.get_tag.outputs.no_tag != 'true'
-        run: sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
+      - name: Install Rust toolchain (cross-compilation)
+        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'aarch64-unknown-linux-gnu'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cross for aarch64
+        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'aarch64-unknown-linux-gnu'
+        run: cargo install cross --git https://github.com/cross-rs/cross
 
       - name: Cache Rust dependencies
         if: steps.get_tag.outputs.no_tag != 'true'
@@ -156,13 +145,13 @@ jobs:
         with:
           key: ${{ matrix.target }}
 
-      - name: Build release binary
-        if: steps.get_tag.outputs.no_tag != 'true'
-        env:
-          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
-          PKG_CONFIG_ALLOW_CROSS: 1
-          PKG_CONFIG_PATH_aarch64_unknown_linux_gnu: /usr/lib/aarch64-linux-gnu/pkgconfig
+      - name: Build release binary (x86_64)
+        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'x86_64-unknown-linux-gnu'
         run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Build release binary (aarch64 with cross)
+        if: steps.get_tag.outputs.no_tag != 'true' && matrix.target == 'aarch64-unknown-linux-gnu'
+        run: cross build --release --target ${{ matrix.target }}
 
       - name: Package binary
         if: steps.get_tag.outputs.no_tag != 'true'
