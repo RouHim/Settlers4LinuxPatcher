@@ -55,6 +55,9 @@ jobs:
     needs: build-test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -78,36 +81,23 @@ jobs:
             conventional-changelog-conventionalcommits
 
       - name: Generate release and changelog
+        id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: semantic-release
+        run: npx semantic-release
 
   upload-artifacts:
     name: Build and Upload Release Binaries
     needs: release
-    if: github.ref == 'refs/heads/main'
+    if: needs.release.outputs.new_release_published == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Determine release tag
-        id: get_tag
-        run: |
-          git fetch --tags --force
-          TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
-          if [ -z "$TAG" ]; then
-            echo "no_tag=true" >> "$GITHUB_OUTPUT"
-            echo "No release tag found; skipping artifact build." >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          echo "no_tag=false" >> "$GITHUB_OUTPUT"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          ref: v${{ needs.release.outputs.new_release_version }}
 
       - name: Install system dependencies
-        if: steps.get_tag.outputs.no_tag != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -120,19 +110,15 @@ jobs:
             pkg-config
 
       - name: Install Rust toolchain
-        if: steps.get_tag.outputs.no_tag != 'true'
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache Rust dependencies
-        if: steps.get_tag.outputs.no_tag != 'true'
         uses: Swatinem/rust-cache@v2
 
       - name: Build release binary
-        if: steps.get_tag.outputs.no_tag != 'true'
         run: cargo build --release
 
       - name: Package binary
-        if: steps.get_tag.outputs.no_tag != 'true'
         run: |
           mkdir -p artifacts
           cp target/release/Settlers4LinuxPatcher artifacts/Settlers4LinuxPatcher
@@ -140,8 +126,7 @@ jobs:
           tar -czf Settlers4LinuxPatcher-linux-x86_64.tar.gz Settlers4LinuxPatcher
 
       - name: Upload binary to release
-        if: steps.get_tag.outputs.no_tag != 'true'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.get_tag.outputs.tag }}
+          tag_name: v${{ needs.release.outputs.new_release_version }}
           files: artifacts/Settlers4LinuxPatcher-linux-x86_64.tar.gz
