@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.3...v1.0.4) (2025-12-04)
+
+### Bug Fixes
+
+* **ci:** remove aarch64 build, focus on x86_64 only ([5b25c0f](https://github.com/RouHim/Settlers4LinuxPatcher/commit/5b25c0ff9df786eda31e7e1b5db2e9f09b333f00))
+
 ## [1.0.3](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.2...v1.0.3) (2025-12-04)
 
 ### Bug Fixes
