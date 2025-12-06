@@ -56,6 +56,7 @@
 - Avoid introducing additional dependencies unless absolutely necessary.
 - Prefer standard Rust libraries and built-in features to minimize external package usage.
 - Evaluate trade-offs before adding any third-party crate.
+- Use conventional commit messages (`feat:`, `fix:`, `chore:` etc.) so semantic-release can publish and trigger the release asset upload workflow.
 
 ## Formatting and Linting
 
