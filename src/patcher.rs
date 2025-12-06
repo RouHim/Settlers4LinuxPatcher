@@ -2,9 +2,9 @@ use anyhow::{Context, Result};
 use std::fs;
 use std::path::Path;
 
-use crate::game_detection::{get_config_path, get_dll_path, validate_game_directory};
 #[cfg(test)]
 use crate::game_detection::get_exe_path;
+use crate::game_detection::{get_config_path, get_dll_path, validate_game_directory};
 use crate::ini_handler;
 #[cfg(test)]
 use crate::resolution::Resolution;
