@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.5...v1.0.6) (2025-12-06)
+
+### Bug Fixes
+
+* **ci:** remove problematic tag checkout in artifact upload job ([8bc4fec](https://github.com/RouHim/Settlers4LinuxPatcher/commit/8bc4fecae87ef4c689d5da5076b1d19ae4c9162c))
+
 ## [1.0.5](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.4...v1.0.5) (2025-12-04)
 
 ### Bug Fixes
