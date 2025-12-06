@@ -7,9 +7,7 @@
 <p align="center">
   <a href="https://github.com/RouHim/Settlers4LinuxPatcher/actions/workflows/ci.yml"><img src="https://github.com/RouHim/Settlers4LinuxPatcher/actions/workflows/ci.yml/badge.svg" alt="CI/CD"></a>
   <a href="https://github.com/RouHim/Settlers4LinuxPatcher/releases/latest"><img src="https://img.shields.io/github/v/release/RouHim/Settlers4LinuxPatcher?color=goldenrod" alt="Latest release"></a>
-  <a href="https://github.com/RouHim/Settlers4LinuxPatcher/releases/latest"><img src="https://img.shields.io/github/downloads/RouHim/Settlers4LinuxPatcher/latest/total?label=Downloads" alt="Downloads"></a>
-  <a href="https://github.com/RouHim/Settlers4LinuxPatcher/blob/main/LICENSE"><img src="https://img.shields.io/github/license/RouHim/Settlers4LinuxPatcher" alt="License"></a>
-  <img src="https://img.shields.io/badge/Platform-Linux%20(Wayland)-informational?logo=linux&logoColor=white" alt="Platform: Linux (Wayland)">
+  <img src="https://img.shields.io/badge/Platform-Linux-informational?logo=linux&logoColor=white" alt="Platform: Linux">
 </p>
 
 <p align="center">
