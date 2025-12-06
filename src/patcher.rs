@@ -2,7 +2,7 @@ use anyhow::{Context, Result};
 use std::fs;
 use std::path::Path;
 
-use crate::game_detection::{get_config_path, get_dll_path, validate_game_directory};
+use crate::game_detection::{get_config_path, get_dll_path, get_exe_path, validate_game_directory};
 use crate::ini_handler;
 #[cfg(test)]
 use crate::resolution::Resolution;
@@ -101,7 +101,8 @@ pub fn patch_game(game_path: &Path, resolution: &Resolution) -> Result<()> {
     // Step 2: Validate GOG version (skipped in tests due to fake files)
     #[allow(clippy::unnecessary_operation)]
     if cfg!(not(test)) {
-        let validation_result = validation::validate_gog_version(&dll_path)?;
+        let exe_path = get_exe_path(game_path);
+        let validation_result = validation::validate_gog_version(&exe_path)?;
         if !validation_result.is_valid {
             anyhow::bail!(
                 "GOG version validation failed:\n{}",
