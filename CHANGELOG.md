@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.1.0...1.2.0) (2025-12-06)
+
+
+### Features
+
+* add app icon and app_id integration ([57b41a1](https://github.com/RouHim/Settlers4LinuxPatcher/commit/57b41a1c3095f6e5cdc764b58d7eef0bd3f697d2))
+
 # [1.1.0](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.7...1.1.0) (2025-12-06)
 
 
