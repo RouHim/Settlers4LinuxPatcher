@@ -24,7 +24,7 @@ anyhow = "1.0"
 tempfile = "3.13"
 
 [target.'cfg(target_env = "musl")'.dependencies]
-mimalloc = "0.1.43"
+mimalloc = "0.1"
 
 [profile.release]
 panic = "abort" # Strip expensive panic clean-up logic
