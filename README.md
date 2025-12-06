@@ -1,8 +1,11 @@
 # Settlers 4 Linux Widescreen Patcher
+<div align="center">
 
 ![App icon](assets/app-icon.png)
 
 Linux-native patcher for **The Settlers 4 – Gold Edition (GOG v2.50.1508)**.
+
+</div>
 
 ![Settlers 4 Linux Widescreen Tool](.github/readme/screenshot.png)
 
