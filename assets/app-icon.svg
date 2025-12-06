@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="256" height="256" shape-rendering="crispEdges">
+  <!-- Stone base -->
+  <rect width="32" height="32" fill="#3a3628"/>
+
+  <!-- Gold frame with shadowed right/bottom edges -->
+  <rect x="0" y="0" width="32" height="2" fill="#c7a04a"/>
+  <rect x="0" y="0" width="2" height="32" fill="#c7a04a"/>
+  <rect x="30" y="0" width="2" height="32" fill="#8a6625"/>
+  <rect x="0" y="30" width="32" height="2" fill="#8a6625"/>
+
+  <!-- Subtle corner highlight -->
+  <rect x="2" y="2" width="2" height="1" fill="#f2e8c8"/>
+
+  <!-- Inner panel -->
+  <rect x="4" y="5" width="24" height="16" fill="#484432"/>
+  <rect x="4" y="5" width="24" height="1" fill="#c7a04a"/>
+  <rect x="4" y="20" width="24" height="1" fill="#8a6625"/>
+
+  <!-- Pixel S -->
+  <rect x="7" y="9" width="5" height="1" fill="#f2e8c8"/>
+  <rect x="7" y="10" width="1" height="1" fill="#f2e8c8"/>
+  <rect x="7" y="11" width="5" height="1" fill="#f2e8c8"/>
+  <rect x="11" y="12" width="1" height="1" fill="#f2e8c8"/>
+  <rect x="7" y="13" width="5" height="1" fill="#f2e8c8"/>
+
+  <!-- Pixel 4 -->
+  <rect x="15" y="9" width="1" height="2" fill="#f2e8c8"/>
+  <rect x="19" y="9" width="1" height="5" fill="#f2e8c8"/>
+  <rect x="15" y="11" width="5" height="1" fill="#f2e8c8"/>
+
+  <!-- Patch/bandage accent -->
+  <rect x="24" y="21" width="1" height="7" fill="#c1933d"/>
+  <rect x="22" y="23" width="5" height="3" fill="#c1933d"/>
+  <rect x="24" y="24" width="1" height="1" fill="#f2e8c8"/>
+  <rect x="25" y="26" width="2" height="1" fill="#a44832"/>
+  <rect x="26" y="24" width="1" height="2" fill="#a44832"/>
+
+  <!-- Moss ground hint -->
+  <rect x="3" y="26" width="8" height="2" fill="#6d7a3b"/>
+</svg>

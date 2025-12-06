@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Settlers 4 Widescreen Tool
+Comment=Patch Settlers IV for widescreen on Linux
+Exec=Settlers4LinuxPatcher
+Icon=settlers4linuxpatcher
+Terminal=false
+Categories=Game;Utility;
+StartupNotify=true

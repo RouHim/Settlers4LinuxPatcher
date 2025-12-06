@@ -3,10 +3,12 @@ use iced::{Alignment, Element, Length, Task, Theme};
 use rfd::FileDialog;
 use std::path::PathBuf;
 
+use crate::app_icon;
 use crate::icons::{self, CHECK, ERROR, INFO, WARNING};
 use crate::resolution::RES_DEFAULT;
 use crate::theme;
 use crate::{display, dynamic_patcher, game_detection, ini_handler, patcher, validation};
+use iced::window::settings::PlatformSpecific;
 use iced_fonts::BOOTSTRAP_FONT_BYTES;
 
 #[derive(Debug, Clone)]
@@ -492,6 +494,8 @@ impl SettlersPatcher {
 }
 
 pub fn run_gui() -> iced::Result {
+    let window_icon = app_icon::app_icon().ok();
+
     iced::application(
         SettlersPatcher::title,
         SettlersPatcher::update,
@@ -502,6 +506,11 @@ pub fn run_gui() -> iced::Result {
     .window(iced::window::Settings {
         size: iced::Size::new(750.0, 450.0),
         resizable: true,
+        icon: window_icon,
+        platform_specific: PlatformSpecific {
+            application_id: String::from("settlers4linuxpatcher"),
+            ..Default::default()
+        },
         ..Default::default()
     })
     .run_with(SettlersPatcher::new)

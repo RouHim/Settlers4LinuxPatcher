@@ -1,3 +1,4 @@
+mod app_icon;
 mod display;
 mod dynamic_patcher;
 mod game_detection;
