@@ -105,15 +105,14 @@ jobs:
       - name: Build release binary
         run: cargo build --release
 
-      - name: Package binary
+      - name: Prepare binary
         run: |
           mkdir -p artifacts
           cp target/release/Settlers4LinuxPatcher artifacts/Settlers4LinuxPatcher
-          cd artifacts
-          tar -czf Settlers4LinuxPatcher-linux-x86_64.tar.gz Settlers4LinuxPatcher
+          chmod +x artifacts/Settlers4LinuxPatcher
 
       - name: Upload binary to release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.release.outputs.new_release_version }}
-          files: artifacts/Settlers4LinuxPatcher-linux-x86_64.tar.gz
+          files: artifacts/Settlers4LinuxPatcher

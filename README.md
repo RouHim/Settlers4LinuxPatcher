@@ -11,10 +11,10 @@ Linux-native patcher for **The Settlers 4 – Gold Edition (GOG v2.50.1508)**.
 
 ## Quick start
 
-1. Download the latest pre-built binary for your architecture from the [Releases page](https://github.com/RouHim/Settlers4LinuxPatcher/releases/latest)
-2. Extract the archive:
+1. Download the latest Linux executable from the [Releases page](https://github.com/RouHim/Settlers4LinuxPatcher/releases/latest)
+2. Make it executable (if your browser didn't preserve the bit):
    ```bash
-   tar -xzf Settlers4LinuxPatcher-linux-*.tar.gz
+   chmod +x Settlers4LinuxPatcher
    ```
 3. Run the patcher:
    ```bash
