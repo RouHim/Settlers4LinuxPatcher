@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.7...1.1.0) (2025-12-06)
+
+
+### Features
+
+* improve formatting in README for clarity ([61bb4c3](https://github.com/RouHim/Settlers4LinuxPatcher/commit/61bb4c3a2de79ce073db0e64595e9f200d5e741c))
+
 ## [1.0.7](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.6...v1.0.7) (2025-12-06)
 
 ### Bug Fixes
