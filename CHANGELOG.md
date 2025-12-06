@@ -1,3 +1,9 @@
+## [1.0.7](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.6...v1.0.7) (2025-12-06)
+
+### Bug Fixes
+
+* **ci:** use semantic-release action to properly set outputs ([10fbdd6](https://github.com/RouHim/Settlers4LinuxPatcher/commit/10fbdd643729203c6f9d0778ab9dbc74ac2519f3))
+
 ## [1.0.6](https://github.com/RouHim/Settlers4LinuxPatcher/compare/v1.0.5...v1.0.6) (2025-12-06)
 
 ### Bug Fixes
