@@ -157,7 +157,7 @@ impl SettlersPatcher {
                 self.is_processing = true;
                 self.status_message = None;
                 self.last_operation = Some(OperationKind::ApplyPatch);
-                let game_path = PathBuf::from(self.game_path.clone());
+                let game_path = self.resolved_game_path();
 
                 Task::perform(
                     async move {
@@ -203,7 +203,7 @@ impl SettlersPatcher {
                 self.is_processing = true;
                 self.status_message = None;
                 self.last_operation = Some(OperationKind::RestoreDefault);
-                let game_path = PathBuf::from(self.game_path.clone());
+                let game_path = self.resolved_game_path();
 
                 Task::perform(
                     async move {
@@ -415,6 +415,10 @@ impl SettlersPatcher {
         theme::settlers_theme()
     }
 
+    fn resolved_game_path(&self) -> PathBuf {
+        game_detection::resolve_game_path(&self.game_path)
+    }
+
     /// Get the currently active resolution
     fn get_active_resolution(&self) -> Option<(u32, u32)> {
         match (self.custom_width_parsed, self.custom_height_parsed) {
@@ -466,7 +470,7 @@ impl SettlersPatcher {
     }
 
     fn validate_game_path(&mut self) {
-        let path = PathBuf::from(&self.game_path);
+        let path = self.resolved_game_path();
 
         self.game_path_valid = game_detection::is_valid_game_directory(&path);
 

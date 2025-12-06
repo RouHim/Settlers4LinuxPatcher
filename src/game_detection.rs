@@ -12,6 +12,25 @@ pub fn is_valid_game_directory(path: &Path) -> bool {
     REQUIRED_FILES.iter().all(|file| path.join(file).exists())
 }
 
+/// Expand user input into a usable path (supports '~' for the home directory)
+pub fn resolve_game_path(input: &str) -> PathBuf {
+    let trimmed = input.trim();
+
+    if trimmed == "~" {
+        if let Some(home) = user_home_dir() {
+            return home;
+        }
+    }
+
+    if let Some(stripped) = trimmed.strip_prefix("~/") {
+        if let Some(home) = user_home_dir() {
+            return home.join(stripped);
+        }
+    }
+
+    PathBuf::from(trimmed)
+}
+
 /// Auto-detect Settlers 4 installation by scanning ~/Games directory
 pub fn detect_game_path() -> Option<PathBuf> {
     // Get user home directory
@@ -181,5 +200,18 @@ mod tests {
 
         let invalid_dir = TempDir::new().unwrap();
         assert!(validate_game_directory(invalid_dir.path()).is_err());
+    }
+
+    #[test]
+    fn test_resolve_game_path_expands_tilde() {
+        let home = user_home_dir().expect("HOME must be set for tests");
+        let resolved = resolve_game_path("~/Games/Settlers4");
+        assert_eq!(resolved, home.join("Games/Settlers4"));
+    }
+
+    #[test]
+    fn test_resolve_game_path_passthrough() {
+        let resolved = resolve_game_path("/opt/settlers4");
+        assert_eq!(resolved, PathBuf::from("/opt/settlers4"));
     }
 }

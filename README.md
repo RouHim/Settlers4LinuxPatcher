@@ -2,6 +2,8 @@
 
 Linux-native patcher for **The Settlers 4 – Gold Edition (GOG v2.50.1508)**.
 
+![Settlers 4 Linux Widescreen Tool](.github/readme/screenshot.png)
+
 ## Requirements
 
 - The Settlers 4 – Gold Edition game files from GOG.com, version 2.50.1508.
