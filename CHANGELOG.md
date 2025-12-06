@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.2.0...1.3.0) (2025-12-06)
+
+
+### Bug Fixes
+
+* update mimalloc dependency version in Cargo.toml ([81ec8f7](https://github.com/RouHim/Settlers4LinuxPatcher/commit/81ec8f7121330c4cf7669b9bf99da7e134dc8347))
+
+
+### Features
+
+* improve formatting in README for clarity ([fcbac41](https://github.com/RouHim/Settlers4LinuxPatcher/commit/fcbac415def3df8be53960209ae204661d5d4779))
+
 # [1.2.0](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.1.0...1.2.0) (2025-12-06)
 
 
