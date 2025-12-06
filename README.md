@@ -1,13 +1,24 @@
-# Settlers 4 Linux Widescreen Patcher
-<div align="center">
+<h1 align="center">Settlers 4 Linux Widescreen Patcher</h1>
 
-![App icon](assets/app-icon.png)
+<p align="center">
+  <img src="assets/app-icon.png" alt="Settlers 4 Linux Widescreen Patcher icon" width="160">
+</p>
 
-Linux-native patcher for **The Settlers 4 – Gold Edition (GOG v2.50.1508)**.
+<p align="center">
+  <a href="https://github.com/RouHim/Settlers4LinuxPatcher/actions/workflows/ci.yml"><img src="https://github.com/RouHim/Settlers4LinuxPatcher/actions/workflows/ci.yml/badge.svg" alt="CI/CD"></a>
+  <a href="https://github.com/RouHim/Settlers4LinuxPatcher/releases/latest"><img src="https://img.shields.io/github/v/release/RouHim/Settlers4LinuxPatcher?color=goldenrod" alt="Latest release"></a>
+  <a href="https://github.com/RouHim/Settlers4LinuxPatcher/releases/latest"><img src="https://img.shields.io/github/downloads/RouHim/Settlers4LinuxPatcher/latest/total?label=Downloads" alt="Downloads"></a>
+  <a href="https://github.com/RouHim/Settlers4LinuxPatcher/blob/main/LICENSE"><img src="https://img.shields.io/github/license/RouHim/Settlers4LinuxPatcher" alt="License"></a>
+  <img src="https://img.shields.io/badge/Platform-Linux%20(Wayland)-informational?logo=linux&logoColor=white" alt="Platform: Linux (Wayland)">
+</p>
 
-</div>
+<p align="center">
+  <i>Linux-native patcher for <strong>The Settlers 4 – Gold Edition (GOG v2.50.1508)</strong>.</i>
+</p>
 
-![Settlers 4 Linux Widescreen Tool](.github/readme/screenshot.png)
+<p align="center">
+  <img src=".github/readme/screenshot.png" alt="Settlers 4 Linux Widescreen Tool UI" width="720">
+</p>
 
 ## Requirements
 
