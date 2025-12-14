@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <i>Linux-native patcher for <strong>The Settlers 4 – Gold Edition (GOG v2.50.1508)</strong>.</i>
+  <i>Linux-native widescreen resolution patcher for <strong>The Settlers 4 – Gold Edition (GOG v2.50.1508)</strong>.</i>
 </p>
 
 <p align="center">
