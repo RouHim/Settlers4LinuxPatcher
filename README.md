@@ -68,9 +68,3 @@ cargo build --release
 - **Cannot find installation:** Place your Wine/Proton prefix under `~/Games`, or manually browse to the folder
   containing `S4.exe`.
 
-## Development
-
-- Build: `cargo build` or `cargo build --release`
-- Run: `cargo run --release`
-- Test: `cargo test`
-- Lint/format: `cargo clippy` and `cargo fmt`
