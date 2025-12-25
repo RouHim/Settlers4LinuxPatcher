@@ -11,6 +11,11 @@ use crate::{display, dynamic_patcher, game_detection, ini_handler, patcher, vali
 use iced::window::settings::PlatformSpecific;
 use iced_fonts::BOOTSTRAP_FONT_BYTES;
 
+// Text input IDs for focus management
+const GAME_PATH_INPUT_ID: &str = "game_path_input";
+const WIDTH_INPUT_ID: &str = "width_input";
+const HEIGHT_INPUT_ID: &str = "height_input";
+
 #[derive(Debug, Clone)]
 pub enum Message {
     GamePathChanged(String),
@@ -249,7 +254,8 @@ impl SettlersPatcher {
         let game_path_label = text("Game Installation Path:");
         let game_path_input = text_input("e.g., /home/user/Games/Settlers4", &self.game_path)
             .on_input(Message::GamePathChanged)
-            .padding(10);
+            .padding(10)
+            .id(text_input::Id::new(GAME_PATH_INPUT_ID));
 
         let browse_button = button(text("Browse..."))
             .on_press(Message::BrowseGamePath)
@@ -284,12 +290,14 @@ impl SettlersPatcher {
         let width_input = text_input("Width", &self.custom_width)
             .on_input(Message::CustomWidthChanged)
             .padding(10)
-            .width(Length::Fixed(120.0));
+            .width(Length::Fixed(120.0))
+            .id(text_input::Id::new(WIDTH_INPUT_ID));
 
         let height_input = text_input("Height", &self.custom_height)
             .on_input(Message::CustomHeightChanged)
             .padding(10)
-            .width(Length::Fixed(120.0));
+            .width(Length::Fixed(120.0))
+            .id(text_input::Id::new(HEIGHT_INPUT_ID));
 
         let custom_inputs_row = row![
             text("Width:").width(Length::Fixed(60.0)),
