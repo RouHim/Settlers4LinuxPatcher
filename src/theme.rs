@@ -58,6 +58,7 @@ pub fn settlers_palette() -> Palette {
         primary: GOLD,
         success: MOSS,
         danger: RUST,
+        warning: AMBER,
     }
 }
 
@@ -78,6 +79,7 @@ pub fn panel_container(_theme: &Theme) -> container::Style {
             offset: Vector::new(0.0, 3.0),
             blur_radius: 6.0,
         },
+        snap: false,
     }
 }
 
@@ -95,6 +97,7 @@ pub fn gold_button(theme: &Theme, status: button::Status) -> button::Style {
             offset: Vector::new(0.0, 2.0),
             blur_radius: 5.0,
         },
+        snap: false,
     };
 
     match status {

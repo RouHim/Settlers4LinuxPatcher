@@ -113,10 +113,6 @@ impl SettlersPatcher {
         (app, Task::none())
     }
 
-    fn title(&self) -> String {
-        String::from("Settlers 4 Widescreen Tool")
-    }
-
     fn update(&mut self, message: Message) -> Task<Message> {
         match message {
             Message::GamePathChanged(path) => {
@@ -497,10 +493,11 @@ pub fn run_gui() -> iced::Result {
     let window_icon = app_icon::app_icon().ok();
 
     iced::application(
-        SettlersPatcher::title,
+        SettlersPatcher::new,
         SettlersPatcher::update,
         SettlersPatcher::view,
     )
+    .title("Settlers 4 Widescreen Tool")
     .font(BOOTSTRAP_FONT_BYTES)
     .theme(SettlersPatcher::theme)
     .window(iced::window::Settings {
@@ -513,5 +510,5 @@ pub fn run_gui() -> iced::Result {
         },
         ..Default::default()
     })
-    .run_with(SettlersPatcher::new)
+    .run()
 }

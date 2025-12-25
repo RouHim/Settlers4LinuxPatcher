@@ -175,8 +175,8 @@ mod tests {
     #[test]
     fn test_dll_data_embedded() {
         // Verify DLLs are actually embedded
-        assert!(RES_DEFAULT.dll_data.len() > 0);
-        assert!(RESOLUTIONS[0].dll_data.len() > 0);
-        assert!(RESOLUTIONS[6].dll_data.len() > 0);
+        assert!(!RES_DEFAULT.dll_data.is_empty());
+        assert!(!RESOLUTIONS[0].dll_data.is_empty());
+        assert!(!RESOLUTIONS[6].dll_data.is_empty());
     }
 }
