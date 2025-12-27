@@ -314,7 +314,8 @@ impl SettlersPatcher {
         // Validation status
         let validation_status: Element<_> = if self.game_path_valid {
             if self.is_valid_gog_version {
-                icons::icon_text_colored(icons::check(), "Valid GOG version detected", theme::MOSS).into()
+                icons::icon_text_colored(icons::check(), "Valid GOG version detected", theme::MOSS)
+                    .into()
             } else {
                 icons::icon_text_colored(
                     icons::error(),
@@ -326,7 +327,8 @@ impl SettlersPatcher {
         } else if !self.game_path.is_empty() {
             icons::icon_text_colored(icons::error(), "Invalid game directory", theme::RUST).into()
         } else {
-            icons::icon_text_colored(icons::info(), "Please select game directory", theme::GOLD).into()
+            icons::icon_text_colored(icons::info(), "Please select game directory", theme::GOLD)
+                .into()
         };
 
         // Resolution section
