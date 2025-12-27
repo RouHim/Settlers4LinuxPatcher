@@ -1,5 +1,9 @@
-use iced::widget::{button, column, container, row, text, text_input};
-use iced::{Alignment, Element, Length, Task, Theme};
+use iced::widget::Id;
+use iced::widget::{button, column, container, operation::focus, row, text, text_input};
+use iced::{
+    keyboard::{self, key::Named},
+    Alignment, Element, Event, Length, Task, Theme,
+};
 use rfd::FileDialog;
 use std::path::PathBuf;
 
@@ -10,6 +14,10 @@ use crate::theme;
 use crate::{display, dynamic_patcher, game_detection, ini_handler, patcher, validation};
 use iced::window::settings::PlatformSpecific;
 use iced_fonts::BOOTSTRAP_FONT_BYTES;
+
+const ID_GAME_PATH: &str = "game_path";
+const ID_CUSTOM_WIDTH: &str = "custom_width";
+const ID_CUSTOM_HEIGHT: &str = "custom_height";
 
 #[derive(Debug, Clone)]
 pub enum Message {
@@ -24,6 +32,9 @@ pub enum Message {
     ApplyPatch,
     RestoreDefault,
     OperationComplete(Result<(), String>),
+
+    // Focus management
+    TabPressed(i32),
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -74,6 +85,10 @@ pub struct SettlersPatcher {
     is_processing: bool,
     status_message: Option<StatusMessage>,
     last_operation: Option<OperationKind>,
+
+    // Focus management
+    focusable_ids: Vec<String>,
+    current_focus_index: Option<usize>,
 }
 
 impl SettlersPatcher {
@@ -89,6 +104,12 @@ impl SettlersPatcher {
         let (default_width, default_height) =
             display::detect_primary_resolution().unwrap_or((1920, 1080));
 
+        let focusable_ids = vec![
+            ID_GAME_PATH.to_string(),
+            ID_CUSTOM_WIDTH.to_string(),
+            ID_CUSTOM_HEIGHT.to_string(),
+        ];
+
         let mut app = Self {
             game_path: game_path.clone(),
             game_path_valid: false,
@@ -103,6 +124,9 @@ impl SettlersPatcher {
             is_processing: false,
             status_message: None,
             last_operation: None,
+
+            focusable_ids,
+            current_focus_index: None,
         };
 
         // Validate initial game path if detected
@@ -237,6 +261,36 @@ impl SettlersPatcher {
                 }
                 Task::none()
             }
+            Message::TabPressed(direction) => {
+                if self.focusable_ids.is_empty() {
+                    return Task::none();
+                }
+
+                let new_index = match self.current_focus_index {
+                    Some(index) => {
+                        let new_idx = index as i32 + direction;
+                        let len = self.focusable_ids.len() as i32;
+                        if new_idx < 0 {
+                            Some(len - 1)
+                        } else if new_idx >= len {
+                            Some(0)
+                        } else {
+                            Some(new_idx)
+                        }
+                    }
+                    None => Some(0),
+                };
+
+                if let Some(idx) = new_index {
+                    if idx >= 0 && (idx as usize) < self.focusable_ids.len() {
+                        let id = self.focusable_ids[idx as usize].clone();
+                        self.current_focus_index = Some(idx as usize);
+                        return focus(id);
+                    }
+                }
+
+                Task::none()
+            }
         }
     }
 
@@ -244,6 +298,7 @@ impl SettlersPatcher {
         // Game path input
         let game_path_label = text("Game Installation Path:");
         let game_path_input = text_input("e.g., /home/user/Games/Settlers4", &self.game_path)
+            .id(Id::new(ID_GAME_PATH))
             .on_input(Message::GamePathChanged)
             .padding(10);
 
@@ -278,11 +333,13 @@ impl SettlersPatcher {
         let resolution_label = text("Target Resolution:").size(16);
 
         let width_input = text_input("Width", &self.custom_width)
+            .id(Id::new(ID_CUSTOM_WIDTH))
             .on_input(Message::CustomWidthChanged)
             .padding(10)
             .width(Length::Fixed(120.0));
 
         let height_input = text_input("Height", &self.custom_height)
+            .id(Id::new(ID_CUSTOM_HEIGHT))
             .on_input(Message::CustomHeightChanged)
             .padding(10)
             .width(Length::Fixed(120.0));
@@ -417,7 +474,7 @@ impl SettlersPatcher {
         game_detection::resolve_game_path(&self.game_path)
     }
 
-    /// Get the currently active resolution
+    /// Get currently active resolution
     fn get_active_resolution(&self) -> Option<(u32, u32)> {
         match (self.custom_width_parsed, self.custom_height_parsed) {
             (Some(w), Some(h)) => Some((w, h)),
@@ -500,6 +557,21 @@ pub fn run_gui() -> iced::Result {
     .title("Settlers 4 Widescreen Tool")
     .font(BOOTSTRAP_FONT_BYTES)
     .theme(SettlersPatcher::theme)
+    .subscription(|_app| {
+        iced::event::listen().filter_map(|event| {
+            if let Event::Keyboard(keyboard::Event::KeyPressed {
+                key: keyboard::Key::Named(Named::Tab),
+                modifiers,
+                ..
+            }) = event
+            {
+                let direction = if modifiers.shift() { -1 } else { 1 };
+                Some(Message::TabPressed(direction))
+            } else {
+                None
+            }
+        })
+    })
     .window(iced::window::Settings {
         size: iced::Size::new(750.0, 450.0),
         resizable: true,
