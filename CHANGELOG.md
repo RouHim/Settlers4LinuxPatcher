@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.3.1...1.4.0) (2025-12-27)
+
+
+### Bug Fixes
+
+* enable wgpu renderer and update iced_fonts API for iced 0.14 ([bfce7b5](https://github.com/RouHim/Settlers4LinuxPatcher/commit/bfce7b5f1d20809023a2cf315a95a9f9a39491db))
+* format code according to rustfmt standards ([330752d](https://github.com/RouHim/Settlers4LinuxPatcher/commit/330752dbe3bbaf8a1c7079387f9db9fea13c1619))
+
+
+### Features
+
+* add tab navigation for input fields using iced 0.14 advanced features ([69f222a](https://github.com/RouHim/Settlers4LinuxPatcher/commit/69f222ab3aa30ce627901194dbff8ac0a7ac5765))
+
 ## [1.3.1](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.3.0...1.3.1) (2025-12-13)
 
 # [1.3.0](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.2.0...1.3.0) (2025-12-06)
