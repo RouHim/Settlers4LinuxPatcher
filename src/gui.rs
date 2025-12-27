@@ -8,7 +8,7 @@ use rfd::FileDialog;
 use std::path::PathBuf;
 
 use crate::app_icon;
-use crate::icons::{self, CHECK, ERROR, INFO, WARNING};
+use crate::icons;
 use crate::resolution::RES_DEFAULT;
 use crate::theme;
 use crate::{display, dynamic_patcher, game_detection, ini_handler, patcher, validation};
@@ -314,19 +314,19 @@ impl SettlersPatcher {
         // Validation status
         let validation_status: Element<_> = if self.game_path_valid {
             if self.is_valid_gog_version {
-                icons::icon_text_colored(CHECK, "Valid GOG version detected", theme::MOSS).into()
+                icons::icon_text_colored(icons::check(), "Valid GOG version detected", theme::MOSS).into()
             } else {
                 icons::icon_text_colored(
-                    ERROR,
+                    icons::error(),
                     "Invalid version - not GOG Gold Edition v2.50.1508",
                     theme::RUST,
                 )
                 .into()
             }
         } else if !self.game_path.is_empty() {
-            icons::icon_text_colored(ERROR, "Invalid game directory", theme::RUST).into()
+            icons::icon_text_colored(icons::error(), "Invalid game directory", theme::RUST).into()
         } else {
-            icons::icon_text_colored(INFO, "Please select game directory", theme::GOLD).into()
+            icons::icon_text_colored(icons::info(), "Please select game directory", theme::GOLD).into()
         };
 
         // Resolution section
@@ -357,7 +357,7 @@ impl SettlersPatcher {
         let aspect_info: Element<_> = if let Some(aspect) = self.get_aspect_ratio_info() {
             if self.custom_width_parsed.is_some() && self.custom_height_parsed.is_some() {
                 row![
-                    icons::icon_colored(INFO, theme::GOLD),
+                    icons::info().color(theme::GOLD),
                     text(" ").color(theme::TEXT_CREAM).size(14),
                     text(format!("Aspect ratio: {}", aspect))
                         .color(theme::TEXT_CREAM)
@@ -368,7 +368,7 @@ impl SettlersPatcher {
                 .into()
             } else {
                 row![
-                    icons::icon_colored(WARNING, theme::AMBER),
+                    icons::warning().color(theme::AMBER),
                     text(" ").color(theme::TEXT_CREAM).size(14),
                     text("Invalid resolution values (800-7680 × 600-4320)")
                         .color(theme::TEXT_CREAM)
@@ -380,7 +380,7 @@ impl SettlersPatcher {
             }
         } else {
             row![
-                icons::icon_colored(WARNING, theme::AMBER),
+                icons::warning().color(theme::AMBER),
                 text(" ").color(theme::TEXT_CREAM).size(14),
                 text("Enter width and height")
                     .color(theme::TEXT_CREAM)
@@ -425,12 +425,12 @@ impl SettlersPatcher {
         // Operation status banner
         let status_banner: Element<_> = if let Some(status) = &self.status_message {
             let (icon, color) = match status.kind {
-                StatusKind::Success => (CHECK, theme::MOSS),
-                StatusKind::Error => (ERROR, theme::RUST),
+                StatusKind::Success => (icons::check(), theme::MOSS),
+                StatusKind::Error => (icons::error(), theme::RUST),
             };
 
             row![
-                icons::icon_colored(icon, color),
+                icon.color(color),
                 text(" ").color(color).size(14),
                 text(&status.text).color(theme::TEXT_CREAM).size(14)
             ]
