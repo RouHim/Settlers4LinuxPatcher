@@ -11,7 +11,7 @@ description = "A tool to patch Settlers 4 on Linux systems."
 iced = { version = "0.14", features = ["advanced", "wgpu"] }
 iced_fonts = { version = "0.3", features = ["bootstrap"] }
 display-info = "0.5"
-rfd = "0.16"
+rfd = "0.17"
 
 # Hashing
 sha1 = "0.10"
