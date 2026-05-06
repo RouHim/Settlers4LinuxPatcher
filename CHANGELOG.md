@@ -1,3 +1,5 @@
+## [1.4.11](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.4.10...1.4.11) (2026-05-06)
+
 ## [1.4.10](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.4.9...1.4.10) (2026-05-03)
 
 ## [1.4.9](https://github.com/RouHim/Settlers4LinuxPatcher/compare/1.4.8...1.4.9) (2026-04-30)
