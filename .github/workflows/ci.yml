@@ -112,7 +112,7 @@ jobs:
           chmod +x artifacts/Settlers4LinuxPatcher
 
       - name: Upload binary to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.release.outputs.new_release_version }}
           files: artifacts/Settlers4LinuxPatcher
